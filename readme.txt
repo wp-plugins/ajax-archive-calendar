@@ -1,4 +1,4 @@
-=== Login page style ===
+=== Ajax Archive Calendar ===
 Contributors: osman sorkar
 donate link: http://www.projapotibd.com/
 Tags: Ajax, Ajax Archive,Ajax Calendar,jquery Calendar, Calendar, style,costomazie Calendar,
