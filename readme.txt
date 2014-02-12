@@ -1,7 +1,7 @@
 === Ajax Archive Calendar ===
 Contributors: osman sorkar
 donate link: http://www.projapotibd.com/
-Tags: Ajax, Ajax Archive,Ajax Calendar,jquery Calendar, Calendar, style,costomazie Calendar,
+Tags: Ajax, Ajax Archive,Ajax Calendar,jquery Calendar, Calendar, style,costomazie Calendar,Widget,Calendar Widget
 Requires at least: 3.0
 Tested up to: 3.8.1
 Stable tag: 2.7.10.11
@@ -30,7 +30,7 @@ Step 3. Activate it from Admin panel.
 Ans: Yeas But you need manually edite.
 
 == Screenshots ==
-
+1. **Example,** - This widget look lick this.
 
 
 == Changelog ==
@@ -40,6 +40,7 @@ Ans: Yeas But you need manually edite.
 * Add Ajax
 
 == Upgrade Notice == 
-
-= 0.01 =
+= 1.01 =
+* Add Tody Active Color.
+= 1.00 =
 * This is the First Version.

@@ -1,9 +1,10 @@
 <?php
+
 /**
  * Plugin Name: Ajax Archive Calendar
  * Plugin URI: http://projapotibd.com
  * Description:A widget that List all recent post.
- * Version: 1.00
+ * Version: 1.01
  * Author: osmansorkar
  * Author URI: http://www.projapotibd.com
  *
@@ -34,7 +35,7 @@ function __construct() {
 		parent::__construct(
 	 		'ajax_ac_widget', // Base ID
 			'Ajax Archive calendar', // Name
-			array( 'description' =>'It is Ajax Archive Calendar') // Args
+			array( 'description' =>'It is Ajax Archive Calendar', 'text_domain' ) // Args
 		);
 	}
 	
@@ -83,7 +84,7 @@ if(empty($m) || $m==''){
 	}
 else {
 	$mmm = str_split($m, 2);
-	$nowm=$mmm['2'];
+	$nowm=zeroise(intval(substr($m, 4, 2)), 2);
 	$nowyear=$mmm['0'].$mmm['1'];
 	}
 
@@ -482,7 +483,7 @@ var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
 	border-radius:20px;
 }
 
-#today a {
+#today a,#today span {
        background: none repeat scroll 0 0 #FF0000 !important;
     color: #FFFFFF;
 	border-radius:20px;
@@ -496,5 +497,7 @@ var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
 </style>
 <?php	
 	}
-	add_filter('wp_head',ajax_ac_head)
+	add_filter('wp_head',ajax_ac_head);
+	
+
 ?>
