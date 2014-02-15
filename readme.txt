@@ -34,12 +34,17 @@ Ans: Yeas But you need manually edite.
 
 
 == Changelog ==
+= 2.0 =
+*add bangla calendar.
+
 = 0.01 =
 * This is the First Version.
 * customize WordPress default calendar
 * Add Ajax
 
 == Upgrade Notice == 
+= 2.0 =
+* Add Bangla Calander for bangla website .
 = 1.01 =
 * Add Tody Active Color.
 = 1.00 =

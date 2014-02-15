@@ -3,8 +3,8 @@
 /**
  * Plugin Name: Ajax Archive Calendar
  * Plugin URI: http://projapotibd.com
- * Description:A ajax Archiv Calendar.
- * Version: 1.01
+ * Description:A widget that List all recent post.
+ * Version: 2.0
  * Author: osmansorkar
  * Author URI: http://www.projapotibd.com
  *
@@ -46,9 +46,9 @@ function __construct() {
 	function widget( $args, $instance ) {
 		extract( $args );
 		$title = apply_filters('widget_title', $instance['title'] );
-		$np = $instance['np'];
-
-
+		
+		$bn = $instance['bangla'];
+		
 		/* Before widget (defined by themes). */
 		echo $before_widget;
 		
@@ -62,7 +62,24 @@ function __construct() {
         <div id="ajax_ac_widget">
      <div class="select_ca">
      <select name="month" id="my_month" >
-<?php $month=array(
+
+<?php if($bn=='1'){ $month=array(
+	'01'=>'জানুয়ারী',
+	'02'=>'ফেব্রুয়ারী',
+	'03'=>'মার্চ',
+	'04'=>'এপ্রিল',
+	'05'=>'মেয়ে',
+	'06'=>'জুন',
+	'07'=>'জুলাই',
+	'08'=>'আগষ্ট',
+	'09'=>'সেপ্টেম্বর',
+	'10'=>'অক্টবর',
+	'11'=>'নভেম্বর',
+	'12'=>'ডিসেম্বর',
+	);
+}
+else{
+	$month=array(
 	'01'=>'January',
 	'02'=>'February',
 	'03'=>'March',
@@ -76,6 +93,7 @@ function __construct() {
 	'11'=>'Novembar',
 	'12'=>'Decembar',
 	);
+	}
 	
 global $m;
 if(empty($m) || $m==''){
@@ -102,6 +120,10 @@ foreach($month as $k=>$mu){
      </select>
   
   <?php 
+ $find = array("1","2","3","4","5","6","7","8","9","0",);
+$replace = array("১","২","৩","৪","৫","৬","৭","৮","৯","০",);
+
+
   $taryear=$nowyear+5;
   $yeararr=array();
   $lassyear=$nowyear-5;
@@ -112,7 +134,9 @@ foreach($month as $k=>$mu){
    
       <select name="Year" id="my_year" >
    <?php  foreach($yeararr as $k=>$year){
-	   
+	   if($bn=='1'){
+	   $year=str_replace($find,$replace,$year);
+	   }
 	   if($k==$nowyear){
 	echo '<option value="'.$k.'" selected="selected" >'.$year.'</option>';
 	}
@@ -129,13 +153,15 @@ foreach($month as $k=>$mu){
         </div><!--my_calender -->
 <script type="text/javascript" >
 jQuery('#my_month').change(function(e) {
+	<?php echo 'var bna='.$bn.';' ?>
     var mon=jQuery(this).val();
 	var year=jQuery('#my_year').val();
 	var to=year+mon;
-	
 	var data = {
 		action: 'ajax_ac',
-		ma: to
+		ma: to,
+		bn:bna,
+		
 	};
 
 	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
@@ -150,13 +176,16 @@ jQuery(document).ready(function(e) {
 </script>
 <script type="text/javascript" >
 jQuery('#my_year').change(function(e) {
+	<?php echo 'var bna='.$bn.';' ?>
     var mon=jQuery('#my_month').val();
 	var year=jQuery('#my_year').val();
 	var to=year+mon;
-	
 	var data = {
 		action: 'ajax_ac',
-		ma: to
+		ma: to,
+		bn: bna
+		
+		
 	};
 
 	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
@@ -174,11 +203,14 @@ jQuery(document).ready(function(e) {
 
 
 jQuery(document).ready(function(e) {
+	<?php echo 'var bna='.$bn.';' ?>
 	<?php if(!isset($_GET['m'])){ echo 'var a='.date(Ym);} else echo 'var a='.$_GET['m'];  ?>
 	
  	var data = {
 		action: 'ajax_ac',
-		ma:a
+		ma:a,
+		bn:bna,
+		
 	};
 
 	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
@@ -204,17 +236,21 @@ jQuery(document).ready(function(e) {
 function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$instance['title'] = strip_tags( $new_instance['title'] );
+		$instance['bangla'] = strip_tags( $new_instance['bangla'] );
 		return $instance;
 	}
 /************************ It is sow only admin menu**********************************/
 	
 	function form( $instance ) {
-		$defaults = array( 'title' => 'Archive Calendar');
+		$defaults = array( 'title' => 'Archive Calendar','bangla'=>'0');
 		$instance = wp_parse_args( (array) $instance, $defaults );
 		?>
    <p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', 'Recent post'); ?></label>
 			<input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" style="width:100%;" />
+            
+            <label for="<?php echo $this->get_field_id( 'bangla' ); ?>"><?php _e('For Bangla tye 1, Default 0 for English:', 'Recent post'); ?></label>
+			<input id="<?php echo $this->get_field_id( 'bangla' ); ?>" name="<?php echo $this->get_field_name( 'bangla' ); ?>" value="<?php echo $instance['bangla']; ?>" style="width:100%;" />
 		</p>
         
          		
@@ -228,7 +264,7 @@ add_action( 'wp_ajax_nopriv_ajax_ac', 'ajax_ac_callback' );
 
 function ajax_ac_callback() {
 
-function ajax_ac_calendar($ma,$initial = true, $echo = true) {
+function ajax_ac_calendar($ma,$bn,$initial = true, $echo = true) {
 	global $wpdb, $m, $monthnum, $year, $wp_locale, $posts;
 	$m=& $ma;
 	$cache = array();
@@ -315,7 +351,13 @@ function ajax_ac_calendar($ma,$initial = true, $echo = true) {
 	}
 
 	foreach ( $myweek as $wd ) {
+$barr=array('Saturday'=>'শনি','Sunday'=>'রবি','Monday'=>'সোম','Tuesday'=>'মঙ্গল','Wednesday'=>'বুধ','Thursday'=>'বৃহ','Friday'=>'শুক্র');
+		if($bn=='1'){
+			$day_name=$barr[$wd];
+			}
+		else{
 		$day_name = (true == $initial) ? $wp_locale->get_weekday_abbrev($wd) : $wp_locale->get_weekday_abbrev($wd);
+		}
 		$wd = esc_attr($wd);
 		$calendar_output .= "\n\t\t<th class=\"$day_name\" scope=\"col\" title=\"$wd\">$day_name</th>";
 	}
@@ -395,6 +437,76 @@ function ajax_ac_calendar($ma,$initial = true, $echo = true) {
 
 	$daysinmonth = intval(date('t', $unixmonth));
 	for ( $day = 1; $day <= $daysinmonth; ++$day ) {
+if($bn==1){
+$dayrrr=array(
+'1'=>'১',
+'2'=>'২',
+'3'=>'৩',
+'4'=>'৪',
+'5'=>'৫',
+'6'=>'৬',
+'7'=>'৭',
+'8'=>'৮',
+'9'=>'৯',
+'10'=>'১০',
+'11'=>'১১',
+'12'=>'১২',
+'13'=>'১৩',
+'14'=>'১৪',
+'15'=>'১৫',
+'16'=>'১৬',
+'17'=>'১৭',
+'18'=>'১৮',
+'19'=>'১৯',
+'20'=>'২০',
+'21'=>'২১',
+'22'=>'২২',
+'23'=>'২৩',
+'24'=>'২৪',
+'25'=>'২৫',
+'26'=>'২৬',
+'27'=>'২৭',
+'28'=>'২৮',
+'29'=>'২৯',
+'30'=>'৩০',
+'31'=>'৩১',
+);
+}
+else {
+$dayrrr=array(
+'1'=>'1',
+'2'=>'2',
+'3'=>'3',
+'4'=>'4',
+'5'=>'5',
+'6'=>'6',
+'7'=>'7',
+'8'=>'8',
+'9'=>'9',
+'10'=>'10',
+'11'=>'11',
+'12'=>'12',
+'13'=>'13',
+'14'=>'14',
+'15'=>'15',
+'16'=>'16',
+'17'=>'17',
+'18'=>'18',
+'19'=>'19',
+'20'=>'20',
+'21'=>'21',
+'22'=>'22',
+'23'=>'23',
+'24'=>'24',
+'25'=>'25',
+'26'=>'26',
+'27'=>'27',
+'28'=>'28',
+'29'=>'29',
+'30'=>'30',
+'31'=>'31',
+);	
+	}
 		if ( isset($newrow) && $newrow )
 			$calendar_output .= "\n\t</tr>\n\t<tr>\n\t\t";
 		$newrow = false;
@@ -408,9 +520,9 @@ function ajax_ac_calendar($ma,$initial = true, $echo = true) {
 			$calendar_output .= '<td class="notday">';
 
 		if ( in_array($day, $daywithpost) ) // any posts today?
-				$calendar_output .= '<a class="has-post" href="' . get_day_link( $thisyear, $thismonth, $day ) . '" title="' . esc_attr( $ak_titles_for_day[ $day ] ) . "\">$day</a>";
+				$calendar_output .= '<a class="has-post" href="' . get_day_link( $thisyear, $thismonth, $day ) . '" title="' . esc_attr( $ak_titles_for_day[ $day ] ) . "\">$dayrrr[$day]</a>";
 		else
-			$calendar_output .='<span class="notpost">'.$day.'</span>';
+			$calendar_output .='<span class="notpost">'.$dayrrr[$day].'</span>';
 		$calendar_output .= '</td>';
 
 		if ( 6 == calendar_week_mod(date('w', mktime(0, 0 , 0, $thismonth, $day, $thisyear))-$week_begins) )
@@ -434,7 +546,8 @@ function ajax_ac_calendar($ma,$initial = true, $echo = true) {
 }
 
 $ma=$_GET['ma'];
-ajax_ac_calendar($ma);
+$bn=$_GET['bn'];
+ajax_ac_calendar($ma,$bn);
 	die(); // this is required to return a proper result
 }
 
