@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Ajax Archive Calendar
  * Plugin URI: http://projapotibd.com
- * Description:A widget that List all recent post.
+ * Description:A ajax Archiv Calendar.
  * Version: 1.01
  * Author: osmansorkar
  * Author URI: http://www.projapotibd.com
