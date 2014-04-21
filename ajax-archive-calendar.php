@@ -1,10 +1,10 @@
-<?php
+﻿<?php
 
 /**
  * Plugin Name: Ajax Archive Calendar
  * Plugin URI: http://projapotibd.com
  * Description:A widget that List all recent post.
- * Version: 2.0
+ * Version: 2.1
  * Author: osmansorkar
  * Author URI: http://www.projapotibd.com
  *
@@ -68,7 +68,7 @@ function __construct() {
 	'02'=>'ফেব্রুয়ারী',
 	'03'=>'মার্চ',
 	'04'=>'এপ্রিল',
-	'05'=>'মেয়ে',
+	'05'=>'মে',
 	'06'=>'জুন',
 	'07'=>'জুলাই',
 	'08'=>'আগষ্ট',

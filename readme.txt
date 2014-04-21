@@ -3,7 +3,7 @@ Contributors: osman sorkar
 donate link: http://www.projapotibd.com/
 Tags: Ajax, Ajax Archive,Ajax Calendar,jquery Calendar, Calendar, style,costomazie Calendar,Widget,Calendar Widget
 Requires at least: 3.0
-Tested up to: 3.8.1
+Tested up to: 3.9
 Stable tag: 2.7.10.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
