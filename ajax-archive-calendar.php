@@ -2,9 +2,9 @@
 
 /**
  * Plugin Name: Ajax Archive Calendar
- * Plugin URI: http://projapotibd.com
- * Description:A widget that List all recent post.
- * Version: 2.1
+ * Plugin URI: http://www.projapotibd.com
+ * Description: Ajax Archive Calendar is not only Calendar is also Archive. It is making by customize WordPress default calendar. I hope every body enjoy this plugin .
+ * Version: 2.2
  * Author: osmansorkar
  * Author URI: http://www.projapotibd.com
  *
