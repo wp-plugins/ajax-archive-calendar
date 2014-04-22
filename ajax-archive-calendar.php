@@ -2,9 +2,9 @@
 
 /**
  * Plugin Name: Ajax Archive Calendar
- * Plugin URI: http://www.projapotibd.com
- * Description: Ajax Archive Calendar is not only Calendar is also Archive. It is making by customize WordPress default calendar. I hope every body enjoy this plugin .
- * Version: 2.2
+ * Plugin URI: http://projapotibd.com
+ * Description:Ajax Archive Calendar is not only Calendar is also Archive. It is making by customize WordPress default calendar. I hope every body enjoy this plugin ..
+ * Version: 2.4
  * Author: osmansorkar
  * Author URI: http://www.projapotibd.com
  *
@@ -249,7 +249,7 @@ function update( $new_instance, $old_instance ) {
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', 'Recent post'); ?></label>
 			<input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" style="width:100%;" />
             
-            <label for="<?php echo $this->get_field_id( 'bangla' ); ?>"><?php _e('For Bangla tye 1, Default 0 for English:', 'Recent post'); ?></label>
+            <label for="<?php echo $this->get_field_id( 'bangla' ); ?>"><?php _e('For Bangla type 1, Default 0 for English:', 'Recent post'); ?></label>
 			<input id="<?php echo $this->get_field_id( 'bangla' ); ?>" name="<?php echo $this->get_field_name( 'bangla' ); ?>" value="<?php echo $instance['bangla']; ?>" style="width:100%;" />
 		</p>
         

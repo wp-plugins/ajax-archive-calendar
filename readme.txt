@@ -34,6 +34,8 @@ Ans: Yeas But you need manually edite.
 
 
 == Changelog ==
+= 2.4 =
+Fixt Some Bug And Bangla
 = 2.0 =
 *add bangla calendar.
 
