@@ -1,20 +1,18 @@
-﻿<?php
-
-/**
- * Plugin Name: Ajax Archive Calendar
- * Plugin URI: http://projapotibd.com
- * Description:Ajax Archive Calendar is not only Calendar is also Archive. It is making by customize WordPress default calendar. I hope every body enjoy this plugin ..
- * Version: 2.4
- * Author: osmansorkar
- * Author URI: http://www.projapotibd.com
- *
- * 
- */
+<?php
+/*
+Plugin Name: Ajax Archive Calendar
+Plugin URI: http://projapotibd.com
+Description:Ajax Archive Calendar is not only Calendar is also Archive. It is making by customize WordPress default calendar. I hope every body enjoy this plugin.
+Author: osmansorkar
+Version: 2.5
+Author URI: http://www.projapotibd.com/
+*/
 
 /**
  * Add function to widgets_init that'll load our widget.
  * @since 0.1
  */
+wp_enqueue_script( 'jquery' );
 add_action( 'widgets_init', 'ajax_ac_int' );
 
 /**
@@ -150,9 +148,13 @@ $replace = array("১","২","৩","৪","৫","৬","৭","৮","৯","০",);
      </div><!--select ca -->
      <div class="clear" style="clear:both; margin-bottom: 5px;"></div>
         <div id="my_calender">
+      
         </div><!--my_calender -->
+        <div class="aj-loging"><img src="<?php $url = plugin_dir_url(__FILE__); echo $url.'loading.gif'; ?>" /></div>
 <script type="text/javascript" >
 jQuery('#my_month').change(function(e) {
+	jQuery(".aj-loging").css("display","block");
+	jQuery("#my_calender").css("opacity","0.30");
 	<?php echo 'var bna='.$bn.';' ?>
     var mon=jQuery(this).val();
 	var year=jQuery('#my_year').val();
@@ -167,6 +169,8 @@ jQuery('#my_month').change(function(e) {
 	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
 	jQuery.get(ajaxurl, data, function(response) {
 		jQuery("#my_calender").html(response);
+			jQuery(".aj-loging").css("display","none");
+	jQuery("#my_calender").css("opacity","1.00");
 	});
 	
 });
@@ -176,6 +180,8 @@ jQuery(document).ready(function(e) {
 </script>
 <script type="text/javascript" >
 jQuery('#my_year').change(function(e) {
+	jQuery(".aj-loging").css("display","block");
+	jQuery("#my_calender").css("opacity","0.30");
 	<?php echo 'var bna='.$bn.';' ?>
     var mon=jQuery('#my_month').val();
 	var year=jQuery('#my_year').val();
@@ -191,6 +197,8 @@ jQuery('#my_year').change(function(e) {
 	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
 	jQuery.get(ajaxurl, data, function(response) {
 		jQuery("#my_calender").html(response);
+			jQuery(".aj-loging").css("display","none");
+	jQuery("#my_calender").css("opacity","1.00");
 	});
 	
 });
@@ -215,7 +223,13 @@ jQuery(document).ready(function(e) {
 
 	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
 	jQuery.get(ajaxurl, data, function(response) {
+		
+
+			
 		jQuery("#my_calender").html(response);
+	jQuery(".aj-loging").css("display","none");
+	jQuery("#my_calender").css("opacity","1.00");
+
 	});   
 });
 </script>
@@ -607,6 +621,12 @@ var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
 .select_ca #my_month {
     float: left;
 }
+.aj-loging > img {
+    margin-left: 140px;
+    margin-top: -100px;
+    position: absolute;
+}
+
 </style>
 <?php	
 	}
